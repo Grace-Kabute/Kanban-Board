@@ -1,0 +1,31 @@
+*{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+.layout {
+    display: grid;
+    /* gap: 0.5em; */
+    /* height: 100vh; */
+  
+    grid-auto-columns: 1fr;
+    grid-auto-rows: repeat(7, 1fr);
+    grid-template-areas:
+      "one one one one one one one"
+      "two four four four four five five"
+      "two four four four four five five"
+      "two four four four four five five";
+  }
+  .topNavbar {
+    grid-area: one;
+    height: 63px;
+  }
+  .sideNavigation {
+    grid-area: two;
+    height: 93.7vh;
+  }
+  
+  .mainBox {
+    grid-area: four;
+  }

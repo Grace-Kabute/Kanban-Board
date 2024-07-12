@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 const User = ( {userAvatar, userName, size} ) => {
   const sizes = {
-    small: { width: 26, height: 26, fontSize: '12px'},
+    small: { width: 26, height: 26, fontSize: '14px'},
     medium: { width: 32, height: 32, fontSize: '16px'},
   };
   const avatarSize = sizes[size] || sizes.medium;

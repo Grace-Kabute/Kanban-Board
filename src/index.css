@@ -1,7 +1,6 @@
 *{
     padding: 0;
     margin: 0;
-    width: 100%;
     box-sizing: border-box;
   }
 .layout {
@@ -23,7 +22,6 @@
   }
   .sideNavigation {
     grid-area: two;
-    height: 93.7vh;
   }
   
   .mainBox {

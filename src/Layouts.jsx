@@ -1,4 +1,6 @@
 import { Box } from "@mui/material";
+import TopNavigation from "./Layouts/TopNavigation";
+import SideNavigation from "./Layouts/SideNavigation";
 
 export default function Layout() {
   return (
@@ -7,20 +9,23 @@ export default function Layout() {
         sx={{ borderBottom: 1, borderColor: "border" }}
         className="topNavbar"
       >
-        Top navigation goes here...
+        <TopNavigation
+          badgeContent= {10}
+        />
       </Box>
       <Box
         sx={{
           borderRight: 1,
           borderColor: "border",
           padding: "0.8rem",
-          borderRadius: "5px",
         }}
         className="sideNavigation"
       >
-        Side navigation goes here ...
+        <SideNavigation />
       </Box>
-      <Box className="mainBox">projects box goes here...</Box>
+      <Box className="mainBox">
+        projects box goes here...
+      </Box>
 
     </div>
   );

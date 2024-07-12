@@ -41,7 +41,7 @@ const TopNavigation = ({badgeContent}) =>{
           >
             <Badge 
             badgeContent={badgeContent}
-            color="success"
+            color="primary"
             sx={{
               '& .MuiBadge-badge': {
                 fontSize: '0.5rem',
@@ -55,7 +55,8 @@ const TopNavigation = ({badgeContent}) =>{
           </IconButton>
           <User
           userName= 'Kabute Grace'
-          userAvatar= '/src/assets/I.jpeg'
+          userAvatar= '/src/assets/No-Profile.jpeg'
+          size= 'medium'
           />
             </Box>
       </NavContainer>

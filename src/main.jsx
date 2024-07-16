@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
+import { LicenseInfo } from '@mui/x-license-pro';
 import { RouterProvider } from "react-router-dom";
 
 import { router } from "./Router.jsx";
@@ -10,6 +11,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "./index.css";
 
+LicenseInfo.setLicenseKey('YOUR_LICENSE_KEY');
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

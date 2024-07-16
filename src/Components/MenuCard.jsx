@@ -5,7 +5,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import PropTypes from "prop-types";
 
-function MenuCard({ menuTitle, icon, styles, onClick }) {
+function MenuCard({ menuTitle, icon, styles, onClick, labels }) {
   return (
     <MenuList
       sx={styles}
@@ -30,6 +30,9 @@ function MenuCard({ menuTitle, icon, styles, onClick }) {
         </ListItemIcon>
         <ListItemText>{menuTitle}</ListItemText>
       </MenuItem>
+      <MenuItem>
+      <ListItemText >{labels}</ListItemText>
+      </MenuItem>
     </MenuList>
   );
 }
@@ -39,7 +42,9 @@ MenuCard.propTypes = {
   icon: PropTypes.object.isRequired,
   styles: PropTypes.object,
   active: PropTypes.bool.isRequired,
+  labels: PropTypes,
   onClick: PropTypes,
+
 };
 
 export default MenuCard;

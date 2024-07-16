@@ -1,6 +1,8 @@
 import { Box } from "@mui/material";
 import TopNavigation from "./Layouts/TopNavigation";
 import SideNavigation from "./Layouts/SideNavigation";
+import DropComponent from "./Components/DropComponent";
+import Project from "./Components/Project";
 
 export default function Layout() {
   return (
@@ -24,7 +26,8 @@ export default function Layout() {
         <SideNavigation />
       </Box>
       <Box className="mainBox">
-        projects box goes here...
+        <Project/>
+        <Box sx={{ overflowX: 'auto'}}> <DropComponent /></Box>
       </Box>
 
     </div>

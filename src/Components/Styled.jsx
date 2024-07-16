@@ -44,3 +44,13 @@ export const WatchListCardContainer = styled("div")(({ theme }) => ({
   },
 }));
 
+export const NavContainer = styled('div')(() => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  height: '100%',
+  width: '100%',
+}));
+
+export const TaskComponent = styled('div')(() => ({
+}));

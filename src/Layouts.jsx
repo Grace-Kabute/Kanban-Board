@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
 import TopNavigation from "./Layouts/TopNavigation";
 import SideNavigation from "./Layouts/SideNavigation";
-import DropComponent from "./Components/DropComponent";
-import Project from "./Components/Project";
+import { Outlet } from "react-router-dom";
+
 
 export default function Layout() {
   return (
@@ -11,9 +11,7 @@ export default function Layout() {
         sx={{ borderBottom: 1, borderColor: "border" }}
         className="topNavbar"
       >
-        <TopNavigation
-          badgeContent= {10}
-        />
+        <TopNavigation badgeContent={10} />
       </Box>
       <Box
         sx={{
@@ -25,11 +23,9 @@ export default function Layout() {
       >
         <SideNavigation />
       </Box>
-      <Box className="mainBox">
-        <Project/>
-        <Box sx={{ overflowX: 'auto'}}> <DropComponent /></Box>
+      <Box className="mainBox"> 
+      <Outlet/>
       </Box>
-
     </div>
   );
 }

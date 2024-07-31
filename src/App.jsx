@@ -1,13 +1,9 @@
-import React from 'react'
-import './index.css'
-import Layout from "./Layouts.jsx";
+import "./App.css";
+import Layout from "./Layouts";
 
-const App = () => {
+
+export default function App() {
   return (
-    <React.StrictMode>
-          <Layout/>
-  </React.StrictMode>
-  )
+      <Layout />
+  );
 }
-
-export default App

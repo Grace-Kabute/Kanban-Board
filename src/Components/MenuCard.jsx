@@ -40,6 +40,7 @@ MenuCard.propTypes = {
   styles: PropTypes.object,
   active: PropTypes.bool.isRequired,
   onClick: PropTypes,
+
 };
 
 export default MenuCard;

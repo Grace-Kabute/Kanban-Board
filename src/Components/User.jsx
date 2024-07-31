@@ -25,12 +25,8 @@ const User = ( {userAvatar, userName, size} ) => {
 }
 User.propTypes = {
   userName: PropTypes.string.isRequired,
-  userAvatar: PropTypes.string,
+  userAvatar: PropTypes.string.isRequired,
   size: PropTypes.oneOf(['small', 'medium']),
 };
-
-User.defaultProps = {
-  userAvatar: '',
-}
 
 export default User

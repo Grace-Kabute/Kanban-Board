@@ -2,37 +2,11 @@ import { useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { Box } from '@mui/material';
 import ProjectBoard from './ProjectBoard';
+import ModalComponent from './ModalComponent';
+import { v4 as uuidv4 } from 'uuid';
+import Project from './Project';
+import initialData from '../Utils/Data'
 
-const initialData = {
-  tasks: {
-    'task-1': { id: 'task-1', content: 'Create login endpoint' },
-    'task-2': { id: 'task-2', content: 'Prepare for interview' },
-    'task-3': { id: 'task-3', content: 'Write documentation' },
-  },
-  columns: {
-    'column-1': {
-      id: 'column-1',
-      title: 'Proposed',
-      taskIds: ['task-1', 'task-2'],
-    },
-    'column-2': {
-      id: 'column-2',
-      title: 'In Progress',
-      taskIds: ['task-3'],
-    },
-    'column-3': {
-      id: 'column-3',
-      title: 'In reviews',
-      taskIds: ['task-3'],
-    },
-    'column-4': {
-      id: 'column-4',
-      title: 'Done',
-      taskIds: [],
-    },
-  },
-  columnOrder: ['column-1', 'column-2', 'column-3', 'column-4'],
-};
 
 const DropComponent = () => {
   const [data, setData] = useState(initialData);
@@ -102,17 +76,68 @@ const DropComponent = () => {
     setData(newState);
   };
 
-  return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Box display="flex" justifyContent="space-between">
-        {data.columnOrder.map((columnId) => {
-          const column = data.columns[columnId];
-          const tasks = column.taskIds.map((taskId) => data.tasks[taskId]);
+  const addTask = (content) => {
+    const newTaskId = uuidv4();
+    const newTask = { id: newTaskId, content };
 
-          return <ProjectBoard key={column.id} column={column} tasks={tasks} />;
-        })}
-      </Box>
-    </DragDropContext>
+    const newTasks = {
+      ...data.tasks,
+      [newTaskId]: newTask,
+    };
+
+    const firstColumn = data.columns['column-1'];
+    const newTaskIds = [...firstColumn.taskIds, newTaskId];
+    const newColumn = {
+      ...firstColumn,
+      taskIds: newTaskIds,
+    };
+
+    const newState = {
+      ...data,
+      tasks: newTasks,
+      columns: {
+        ...data.columns,
+        [newColumn.id]: newColumn,
+      },
+    };
+
+    setData(newState);
+  };
+
+  const deleteTask = (taskId) => {
+    const newTasks = { ...data.tasks };
+    delete newTasks[taskId];
+
+    const newColumns = { ...data.columns };
+    Object.keys(newColumns).forEach(columnId => {
+      const column = newColumns[columnId];
+      column.taskIds = column.taskIds.filter(id => id !== taskId);
+    });
+
+    const newState = {
+      ...data,
+      tasks: newTasks,
+      columns: newColumns,
+    };
+
+    setData(newState);
+  };
+
+  return (
+    <Box >
+      <ModalComponent buttonText="Add Task" onAdd={addTask} use="Task" />
+      <Project ProjectName='Constock'/>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Box display="flex" justifyContent="space-between" gap="2em" overflowX="auto">
+          {data.columnOrder.map((columnId) => {
+            const column = data.columns[columnId];
+            const tasks = column.taskIds.map((taskId) => data.tasks[taskId]);
+
+            return <ProjectBoard key={column.id} column={column} tasks={tasks} deleteTask={deleteTask} />;
+          })}
+        </Box>
+      </DragDropContext>
+    </Box>
   );
 };
 

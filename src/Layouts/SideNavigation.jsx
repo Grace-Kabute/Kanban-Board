@@ -1,56 +1,70 @@
+import { Box, Container, Typography, Collapse } from '@mui/material';
 import { useState } from 'react';
-import Container from '@mui/material/Container';
-import { faHome, faGear, faUsers, faArrowRight, faProjectDiagram } from '@fortawesome/free-solid-svg-icons';
-import Box from '@mui/material/Box';
+import { faHome, faGear, faUsers, faProjectDiagram } from '@fortawesome/free-solid-svg-icons';
 import MenuCard from '../Components/MenuCard';
 import User from '../Components/User';
-import { Typography } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
-const SideNavigation = ({ setSelectedProject }) => {
+
+const SideNavigation = ({ projects, setSelectedProject }) => {
   const [activeMenu, setActiveMenu] = useState('Home');
+  const [openProjects, setOpenProjects] = useState(false);
+  const navigate = useNavigate();
 
   const handleMenuClick = (menuName) => {
     setActiveMenu(menuName);
     setSelectedProject(null);
+    navigate(`/${menuName.toLowerCase()}`);
+  };
+
+  const handleProjectClick = (project) => {
+    setActiveMenu('Projects');
+    setSelectedProject(project);
+    navigate(`/projects/${project.id}`);
+  };
+
+  const toggleProjects = () => {
+    setOpenProjects((prev) => !prev);
   };
 
   return (
-    <Container
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100vh',
-        justifyContent: 'space-between',
-        padding: '10px 0',
-      }}
-    >
+    <Container sx={{ display: 'flex', flexDirection: 'column', height: '100vh', justifyContent: 'space-between', padding: '10px 0' }}>
       <Box>
         <Typography>Navigations</Typography>
-        <Box sx={{ borderColor: 'border', paddingBottom: '10px', paddingTop: '10px'}}>
-          <Link to="/home" style={{ textDecoration: 'none', color: 'black'  }}>
-            <MenuCard menuTitle='Home' icon={faHome} active={activeMenu === 'Home'} onClick={() => handleMenuClick('Home')} />
+        <Box sx={{ borderColor: 'border', paddingBottom: '10px', paddingTop: '10px' }}>
+          <Link to="/home" style={{ textDecoration: 'none', color: 'black' }}>
+            <MenuCard menuTitle="Home" icon={faHome} active={activeMenu === 'Home'} onClick={() => handleMenuClick('Home')} />
           </Link>
-          <Link to="/projects" style={{ textDecoration: 'none', color: 'black'  }}>
-            <MenuCard menuTitle='Projects' icon={faProjectDiagram} active={activeMenu === 'Projects'} onClick={() => handleMenuClick('Projects')} />
+          <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={toggleProjects}>
+            <MenuCard menuTitle="Projects" icon={faProjectDiagram} active={activeMenu === 'Projects'} />
+          </Box>
+          <Collapse in={openProjects}>
+            <Box sx={{ borderColor: 'border', paddingBottom: '10px', paddingLeft: '20px' }}>
+              {projects.length > 0 ? (
+                projects.map((project) => (
+                  <Box key={project.id} onClick={() => handleProjectClick(project)} sx={{ cursor: 'pointer' }}>
+                    <Typography>{project.name}</Typography>
+                  </Box>
+                ))
+              ) : (
+                <Typography>No projects</Typography>
+              )}
+            </Box>
+          </Collapse>
+          <Link to="/members" style={{ textDecoration: 'none', color: 'black' }}>
+            <MenuCard menuTitle="Members" icon={faUsers} active={activeMenu === 'Members'} onClick={() => handleMenuClick('Members')} />
           </Link>
-          <Link to="/members" style={{ textDecoration: 'none', color: 'black'  }}>
-            <MenuCard menuTitle='Members' icon={faUsers} active={activeMenu === 'Members'} onClick={() => handleMenuClick('Members')} />
-          </Link>
-          <Link to="/settings" style={{ textDecoration: 'none', color: 'black'  }}>
-            <MenuCard menuTitle='Settings' icon={faGear} active={activeMenu === 'Settings'} onClick={() => handleMenuClick('Settings')} />
+          <Link to="/settings" style={{ textDecoration: 'none', color: 'black' }}>
+            <MenuCard menuTitle="Settings" icon={faGear} active={activeMenu === 'Settings'} onClick={() => handleMenuClick('Settings')} />
           </Link>
         </Box>
         <Typography>Direct Messages</Typography>
-        <Box sx={{ borderColor: 'border', paddingBottom: '20px' }}>
-          <User userName='Kabute Grace' userAvatar='/src/assets/I.jpeg' size='small' />
-          <User userName='Kabute Grace' userAvatar='/src/assets/No-Profile.jpeg' size='small' />
-          <User userName='Kabute Grace' userAvatar='/src/assets/No-Profile.jpeg' size='small' />
+        <Box sx={{ borderColor: 'border', paddingBottom: '110px' }}>
+          <User userName="Kabute Grace" userAvatar="/src/assets/I.jpeg" size="small" />
+          <User userName="Kabute Grace" userAvatar="/src/assets/No-Profile.jpeg" size="small" />
+          <User userName="Kabute Grace" userAvatar="/src/assets/No-Profile.jpeg" size="small" />
         </Box>
-      </Box>
-      <Box>
-        <MenuCard menuTitle='Sign Out' icon={faArrowRight} active={activeMenu === 'Sign-Out'} onClick={() => handleMenuClick('Sign-Out')} />
       </Box>
     </Container>
   );

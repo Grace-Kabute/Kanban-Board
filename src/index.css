@@ -4,9 +4,9 @@
     box-sizing: border-box;
   }
 .layout {
+    background-color: rgba(211, 211, 211, 0.884);
     display: grid;
     overflow: hidden;
-    background-size: contain;
     grid-auto-columns: 1fr;
     grid-auto-rows: repeat(7, 1fr);
     grid-template-areas:
@@ -18,16 +18,13 @@
   .topNavbar {
     grid-area: one;
     height: 63px;
-    background-color: rgba(211, 211, 211, 0.884);
+    
   }
   .sideNavigation {
     grid-area: two;
-    background-color: rgba(211, 211, 211, 0.884);
   }
   
   .mainBox {
     grid-area: four;
-    color: white;
-    background-image: url('./assets/bg.jpg');
-    background-size: contain;
+    overflow-x: auto;
   }

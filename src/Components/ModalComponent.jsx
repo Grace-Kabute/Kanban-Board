@@ -1,58 +1,80 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import AddIcon from '@mui/icons-material/Add';
-import PropTypes from "prop-types";
 import { useState } from 'react';
+import { Box, Button, Typography, Modal, TextField } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import PropTypes from 'prop-types';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 const style = {
   position: 'absolute',
-  top: '50%',
-  left: '50%',
+  top: '30%',
+  left: '55%',
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
   boxShadow: 24,
-  p: 4,
+  p: 2,
 };
 
-export default function BasicModal({buttonText}) {
+export default function ModalComponent({ buttonText, onAdd, use }) {
   const [open, setOpen] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const [dueDate, setDueDate] = useState(null);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const handleAdd = () => {
+    onAdd({ name: inputValue, dueDate });
+    setInputValue('');
+    setDueDate(null);
+    handleClose();
+  };
+
   return (
     <>
-      <Button
-        startIcon={<AddIcon/>}
-        size="small" 
-        sx={{color: '#000000'}}
-        onClick={handleOpen}
-        >
-        {buttonText}  
-        </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      <Button startIcon={<AddIcon />} size="small" onClick={handleOpen}>
+        {buttonText}
+      </Button>
+      <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Create new Project
+            Create new {use}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          Fill in the information of the project
+            Fill in the information of the {use.toLowerCase()}
           </Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
+            <TextField
+              hiddenLabel
+              id="filled-hidden-label-small"
+              label={`${use} Name`}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              size="small"
+              fullWidth
+            />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Set Due Date"
+                value={dueDate}
+                onChange={(newValue) => setDueDate(newValue)}
+                renderInput={(params) => <TextField {...params} size='small' fullWidth />}
+              />
+            </LocalizationProvider>
+            <Button variant="contained" size="small" onClick={handleAdd}>
+              Add {use}
+            </Button>
+          </Box>
         </Box>
-
       </Modal>
     </>
   );
 }
 
-BasicModal.propTypes = {
-  buttonText: PropTypes.string
+ModalComponent.propTypes = {
+  buttonText: PropTypes.string,
+  onAdd: PropTypes.func.isRequired,
+  use: PropTypes.string.isRequired,
 };

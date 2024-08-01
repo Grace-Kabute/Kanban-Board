@@ -17,7 +17,7 @@ const TaskComponent = ({ userAvatar, description, dueDate, deleteTask, editTask 
           <DeleteIcon onClick={deleteTask} sx={{ cursor: 'pointer' }} />
           <EditIcon onClick={editTask} sx={{ cursor: 'pointer' }} />
         </Box>
-        <Typography>Due: {dueDate ? dueDate.format('YYYY-MM-DD') : ''}</Typography>
+        <Typography>Due: {dueDate ? dueDate.format('YY/MM/DD') : ''}</Typography>
       </Box>
     </Paper>
   );

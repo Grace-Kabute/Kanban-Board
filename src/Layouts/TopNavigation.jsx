@@ -1,4 +1,4 @@
-import { Box, Badge, IconButton, Avatar } from "@mui/material";
+import { Box, Badge, IconButton } from "@mui/material";
 import MailIcon from '@mui/icons-material/Mail';
 import { NavContainer } from "../Components/Styled";
 import { WhiteTypography } from "../Components/Styled";
@@ -11,7 +11,6 @@ const TopNavigation = ({ badgeContent, addProject }) => {
     <NavContainer>
       <Box sx={{ display: 'flex', gap: '6em' }}>
         <Box sx={{ display: 'flex', alignItems: "center" }}>
-        <Avatar sx={{ bgcolor: 'black', color: 'white', width:36, height: 36 }}>TF</Avatar>   
         <WhiteTypography
             sx={{
               fontWeight: '700px',
